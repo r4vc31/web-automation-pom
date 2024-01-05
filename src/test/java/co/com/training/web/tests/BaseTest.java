@@ -12,9 +12,11 @@ public abstract class BaseTest {
     private static DriverManager driverManager;
     public NavigationPage navigationPage;
 
+    String url = System.getenv("NAME");
+
     @BeforeMethod(alwaysRun = true)
-    @Parameters({"browser","url"})
-    public void beforeMethod(String browser, String url) {
+    @Parameters({"browser"})
+    public void beforeMethod(String browser) {
         driverManager = DriverManager.newDriver(browser);
         navigationPage = new NavigationPage(driverManager.getWebDriver(url));
     }
