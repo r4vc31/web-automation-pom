@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters{
-        text(name:"URL", defaultValue:"https://www.saucedemo.com/", description:"url")
+        text(name:"URL", defaultValue:"https://www.globalsqa.com/angularjs-protractor-practice-site/", description:"url")
     }
 
     tools {
@@ -16,8 +16,11 @@ pipeline {
                 // Get some code from a GitHub repository
                 git branch: 'main', url: 'https://github.com/luisaferco/web-automation-pom.git'
 
-                bat(script:'javac src/Main.java', returnStatus: true)
-                                    bat "java Main -URL=${params.URL}"
+                // Run Maven on a Unix agent.
+                //sh "mvn -Dmaven.test.failure.ignore=true clean package"
+
+                // To run Maven on a Windows agent, use
+                bat "mvn clean verify -URL=${params.URL}"
             }
 
             post {
